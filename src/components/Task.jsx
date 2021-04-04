@@ -4,12 +4,12 @@ import { Draggable } from 'react-beautiful-dnd'
 
 const Task = ({ task, index }) => {
   return (
-    <Draggable draggableId={task.id} index={index}>
+    <Draggable draggableId={task.id} index={index} key={task.id}>
       {(provided) => (
         <Container
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          innerRef={provided.innerRef}
+          ref={provided.innerRef}
         >
           {task.content}
         </Container>
@@ -26,4 +26,5 @@ const Container = styled.div`
   border-radius: 2px;
   padding: 8px;
   margin-bottom: 8px;
+  background-color: #fff;
 `;

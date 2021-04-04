@@ -10,7 +10,7 @@ const Column = ({ column, tasks }) => {
       <Droppable droppableId={column.id}>
         {(provided) => (
           <TaskList
-            innerRef={provided.innerRef}
+            ref={provided.innerRef}
             {...provided.droppableProps}
           >
             {tasks.map((task, index) =>
