@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { DragDropContext } from 'react-beautiful-dnd'
 import data from './data'
 import Column from './components/Column'
+import Header from './components/Header'
 
 const App = () => {
   const [todos, setTodos] = useState(data)
@@ -39,18 +40,21 @@ const App = () => {
   }
 
   return (
-    <DragDropContext
-      onDragEnd={onDragEnd}
-    >
-      <Container>
-        {todos.columnOrder.map((columnId) => {
-          const column = todos.columns[columnId];
-          const tasks = column.taskIds.map((taskId) => todos.tasks[taskId]);
-  
-          return <Column key={column.id} column={column} tasks={tasks} />
-        })}
-      </Container>
-    </DragDropContext>
+    <>
+      <Header />
+      <DragDropContext
+        onDragEnd={onDragEnd}
+      >
+        <Container>
+          {todos.columnOrder.map((columnId) => {
+            const column = todos.columns[columnId];
+            const tasks = column.taskIds.map((taskId) => todos.tasks[taskId]);
+    
+            return <Column key={column.id} column={column} tasks={tasks} />
+          })}
+        </Container>
+      </DragDropContext>
+    </>
   )
 }
 
