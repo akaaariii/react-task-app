@@ -6,6 +6,7 @@ const Header = () => {
   return (
     <HeaderContainer>
       <Logo src={logo} alt="logo"/>
+      Tasker
     </HeaderContainer>
   )
 }
@@ -14,6 +15,8 @@ export default Header
 
 
 const HeaderContainer = styled.header`
+  display: flex;
+  align-items: center;
   padding: 8px 16px;
   background-color: #dbdbdb;
   margin-bottom: 24px;
