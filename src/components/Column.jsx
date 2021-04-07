@@ -1,27 +1,34 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Droppable } from 'react-beautiful-dnd'
+import { Droppable, Draggable } from 'react-beautiful-dnd'
 import Task from './Task'
 
-const Column = ({ column, tasks }) => {
+const Column = ({ column, tasks, index }) => {
   return (
-    <Container>
-      <Title>{column.title}</Title>
-      <Droppable droppableId={column.id}>
-        {(provided, snapshot) => (
-          <TaskList
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-            isDraggingOver={snapshot.isDraggingOver}
-          >
-            {tasks.map((task, index) =>
-              <Task key={task.id} task={task} index={index} />
+    <Draggable draggableId={column.id} index={index}>
+      {(provided) => (
+        <Container
+          {...provided.draggableProps}
+          ref={provided.innerRef}
+        >
+          <Title {...provided.dragHandleProps}>{column.title}</Title>
+          <Droppable droppableId={column.id} type="task">
+            {(provided, snapshot) => (
+              <TaskList
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+                isDraggingOver={snapshot.isDraggingOver}
+              >
+                {tasks.map((task, index) =>
+                  <Task key={task.id} task={task} index={index} />
+                )}
+                {provided.placeholder}
+              </TaskList>
             )}
-            {provided.placeholder}
-          </TaskList>
-        )}
-      </Droppable>
-    </Container>
+          </Droppable>
+        </Container>
+      )}
+    </Draggable>
   )
 }
 
@@ -35,15 +42,15 @@ const Container = styled.div`
   width: 30%;
   display: flex;
   flex-direction: column;
+  background-color: #fff;
 `;
 const Title = styled.h3`
   padding: 16px;
-  /* text-align: center; */
 `;
 const TaskList = styled.div`
   padding: 8px;
   transition: background-color 0.2s ease;
-  background-color: ${props => (props.isDraggingOver ? 'powderblue' : '#fff')};
+  background-color: ${props => (props.isDraggingOver ? 'powderblue' : 'inherit')};
   flex-grow: 1;
   min-height: 100px;
 `;

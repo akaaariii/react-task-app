@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { DragDropContext } from 'react-beautiful-dnd'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import data from './data'
 import Column from './components/Column'
 import Header from './components/Header'
@@ -10,12 +10,25 @@ const App = () => {
 
   const onDragEnd = (result) => {
     // console.log(result);
-    const { destination, source, draggableId } = result;
+    const { destination, source, draggableId, type } = result;
     if(!destination) {
       return
     }
     if(destination.droppableId === source.droppableId && destination.index === source.index) {
       return
+    }
+
+    if(type === 'column') {
+      const newColumnOrder = Array.from(todos.columnOrder);
+      newColumnOrder.splice(source.index, 1);
+      newColumnOrder.splice(destination.index, 0, draggableId);
+
+      const newTodos = {
+        ...todos,
+        columnOrder: newColumnOrder
+      };
+      setTodos(newTodos);
+      return;
     }
 
     const start = todos.columns[source.droppableId];
@@ -75,14 +88,22 @@ const App = () => {
       <DragDropContext
         onDragEnd={onDragEnd}
       >
-        <Container>
-          {todos.columnOrder.map((columnId) => {
-            const column = todos.columns[columnId];
-            const tasks = column.taskIds.map((taskId) => todos.tasks[taskId]);
-    
-            return <Column key={column.id} column={column} tasks={tasks} />
-          })}
-        </Container>
+        <Droppable droppableId="all-columns" direction="horizontal" type="column">
+          {(provided) => (
+            <Container
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {todos.columnOrder.map((columnId, index) => {
+                const column = todos.columns[columnId];
+                const tasks = column.taskIds.map((taskId) => todos.tasks[taskId]);
+        
+                return <Column key={column.id} column={column} tasks={tasks} index={index} />
+              })}
+              {provided.placeholder}
+            </Container>
+          )}
+        </Droppable>
       </DragDropContext>
     </>
   )
