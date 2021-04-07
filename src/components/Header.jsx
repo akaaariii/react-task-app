@@ -18,8 +18,8 @@ const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
   padding: 8px 16px;
-  background-color: #dbdbdb;
   margin-bottom: 24px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 8px 10px -10px;
 `;
 const Logo = styled.img`
   width: 45px;

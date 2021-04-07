@@ -37,12 +37,11 @@ export default Column
 
 const Container = styled.div`
   margin: 8px;
-  border: 1px solid #888888;
-  border-radius: 2px;
+  border-radius: 5px;
   width: 30%;
   display: flex;
   flex-direction: column;
-  background-color: #fff;
+  background-color: #f4f5f7;
 `;
 const Title = styled.h3`
   padding: 16px;
