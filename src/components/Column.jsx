@@ -37,8 +37,8 @@ const Container = styled.div`
   flex-direction: column;
 `;
 const Title = styled.h3`
-  padding: 8px;
-  text-align: center;
+  padding: 16px;
+  /* text-align: center; */
 `;
 const TaskList = styled.div`
   padding: 8px;

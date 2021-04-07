@@ -18,23 +18,53 @@ const App = () => {
       return
     }
 
-    const column = todos.columns[source.droppableId];
-    const newTaskIds = Array.from(column.taskIds);
+    const start = todos.columns[source.droppableId];
+    const finish = todos.columns[destination.droppableId];
 
-    // Switch the order
-    newTaskIds.splice(source.index, 1);
-    newTaskIds.splice(destination.index, 0, draggableId);
-
-    const newColumn = {
-      ...column,
-      taskIds: newTaskIds
+    if(start === finish) {
+      const newTaskIds = Array.from(start.taskIds);
+  
+      // Switch the order
+      newTaskIds.splice(source.index, 1);
+      newTaskIds.splice(destination.index, 0, draggableId);
+  
+      const newColumn = {
+        ...start,
+        taskIds: newTaskIds
+      }
+      const newTodos = {
+        ...todos,
+        columns: {
+          ...todos.columns,
+          [newColumn.id]: newColumn
+        }
+      };
+      setTodos(newTodos);
+      return;
     }
+
+    // Moving from one list to another column
+    const startTaskIds = Array.from(start.taskIds);
+    startTaskIds.splice(source.index, 1);
+    const newStart = {
+      ...start,
+      taskIds: startTaskIds,
+    };
+
+    const finishTaskIds = Array.from(finish.taskIds);
+    finishTaskIds.splice(destination.index, 0, draggableId);
+    const newFinish = {
+      ...finish,
+      taskIds: finishTaskIds,
+    };
+
     const newTodos = {
       ...todos,
       columns: {
         ...todos.columns,
-        [newColumn.id]: newColumn
-      }
+        [newStart.id]: newStart,
+        [newFinish.id]: newFinish,
+      },
     };
     setTodos(newTodos);
   }
