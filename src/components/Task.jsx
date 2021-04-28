@@ -27,7 +27,7 @@ const Container = styled.div`
   border-radius: 2px;
   padding: 8px;
   margin-bottom: 8px;
-  background-color: ${props => (props.isDragging ? 'lightgreen' : '#fff')};
+  background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 
   :hover {
