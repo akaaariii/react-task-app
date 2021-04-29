@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import data from './data'
 import Column from './components/Column'
 import Header from './components/Header'
+import ActionButton from './components/ActionButton'
 
-const App = () => {
+const App = ({ columns }) => {
   const [todos, setTodos] = useState(data)
 
   const onDragEnd = (result) => {
@@ -101,6 +103,7 @@ const App = () => {
                 return <Column key={column.id} column={column} tasks={tasks} index={index} />
               })}
               {provided.placeholder}
+              <ActionButton column />
             </Container>
           )}
         </Droppable>
@@ -109,10 +112,13 @@ const App = () => {
   )
 }
 
-export default App
+const mapStateToProps = state => ({
+  columns: state.columns
+})
+
+export default connect(mapStateToProps)(App)
 
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-around;
 `;

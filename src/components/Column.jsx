@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import Task from './Task'
+import ActionButton from './ActionButton'
 
 const Column = ({ column, tasks, index }) => {
   return (
@@ -23,6 +24,7 @@ const Column = ({ column, tasks, index }) => {
                   <Task key={task.id} task={task} index={index} />
                 )}
                 {provided.placeholder}
+                <ActionButton />
               </TaskList>
             )}
           </Droppable>
@@ -37,8 +39,8 @@ export default Column
 
 const Container = styled.div`
   margin: 8px;
-  border-radius: 5px;
-  width: 30%;
+  border-radius: 3px;
+  width: 25%;
   display: flex;
   flex-direction: column;
   background-color: #f4f5f7;
