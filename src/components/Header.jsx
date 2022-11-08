@@ -1,17 +1,18 @@
-import React from 'react';
-import styled from 'styled-components';
-import logo from '../assets/images/logo.svg';
+import React from 'react'
+import styled from 'styled-components'
+import logo from '../assets/images/logo.svg'
 
 const Header = () => {
   return (
     <HeaderContainer>
-      <Logo src={logo} alt="logo" />
+      <Logo src={logo} alt="logo"/>
       Tasker
     </HeaderContainer>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
+
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -22,5 +23,6 @@ const HeaderContainer = styled.header`
 `;
 const Logo = styled.img`
   width: 45px;
-  margin-left: 16px;
+  margin: 0 16px;
+  border-radius: 8%;
 `;
